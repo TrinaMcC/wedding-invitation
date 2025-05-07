@@ -11,7 +11,7 @@
       margin: 0;
       background-color: #1a1a1a;
       font-family: 'Uncial Antiqua', cursive;
-      color: #e4dcbf;
+      color: #f5f2e7;
       overflow: hidden;
     }
 
@@ -19,84 +19,86 @@
       position: relative;
       width: 100vw;
       height: 100vh;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
+    }
+
+    .seal {
+      width: 150px;
+      height: 150px;
+      background: url('wax-seal-placeholder.png') center/contain no-repeat;
+      cursor: pointer;
+      z-index: 3;
+      transition: transform 0.5s ease;
+    }
+
+    .seal:hover {
+      transform: scale(1.1);
     }
 
     .scroll {
-      width: 300px;
-      height: 200px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
-      border: 2px solid #aa8c3c;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #000;
-      cursor: pointer;
-      transition: transform 0.4s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem;
-      color: #aa8c3c;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .scroll:hover {
-      transform: scale(1.05);
-    }
-
-    .invitation {
       position: absolute;
-      top: 5%;
-      width: 85%;
+      width: 90%;
       max-width: 700px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
-      background-size: cover;
-      color: #2b1d0e;
-      border: 2px solid #aa8c3c;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Old_parchment_texture.jpg') center/cover no-repeat;
       padding: 2rem;
-      font-size: 1.2rem;
-      line-height: 1.6;
+      border: 3px solid #8b6f3f;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      text-align: center;
       display: none;
       z-index: 2;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #000;
+      animation: unroll 1.2s ease forwards;
     }
 
-    .show {
-      display: block;
-      animation: fadeIn 1s ease;
+    @keyframes unroll {
+      from {
+        transform: scaleY(0);
+        opacity: 0;
+      }
+      to {
+        transform: scaleY(1);
+        opacity: 1;
+      }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    h2 {
+      color: #d6b66b;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .scroll p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin: 0.75rem 0;
+      color: #2b1f0f;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="scroll" onclick="openInvitation()">
-      Open the Scroll
-    </div>
-    <div class="invitation" id="invitationText">
-      <h2 style="text-align:center; color:#7d5a23;">You Are Cordially Invited</h2>
-      <p>By the will of fate and the strength of love,</p>
-      <p><strong>C & M</strong> request your presence at the celebration of their union.</p>
-      <p>Among ancient trees and under golden skies, they shall bind their destinies together.</p>
+    <div class="seal" onclick="openInvitation()"></div>
+    <div class="scroll" id="invitationText">
+      <h2>You Are Cordially Summoned</h2>
+      <p>By the stars above and the ancient oaths below,</p>
+      <p><strong>C & M</strong> invite you to witness their union.</p>
+      <p>In the heart of the realm, where old trees whisper and rivers sing, their souls shall be bound as one.</p>
       <p><strong>Date:</strong> [Insert Date Here]</p>
       <p><strong>Location:</strong> [Insert Location Here]</p>
-      <p>Join us for a night of joy, laughter, and timeless stories shared by firelight. Dress in your finest elvish garb or noble attire, and let your heart be light.</p>
-      <p style="text-align:center; font-style: italic;">May the stars guide you to us ✨</p>
+      <p>A feast shall follow, with song, laughter, and merriment deep into the night.</p>
+      <p>Dress with grace, come with joy, and walk beside us into a new chapter.</p>
+      <p>— Let the tale begin —</p>
     </div>
   </div>
 
   <script>
     function openInvitation() {
-      document.querySelector('.scroll').style.display = 'none';
-      document.getElementById('invitationText').classList.add('show');
+      document.querySelector('.seal').style.display = 'none';
+      const invitation = document.getElementById('invitationText');
+      invitation.style.display = 'block';
     }
   </script>
 </body>
