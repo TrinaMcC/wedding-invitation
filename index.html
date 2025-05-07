@@ -18,8 +18,8 @@
         }
         .invitation {
             position: relative;
-            width: 350px;
-            height: 500px;
+            width: 600px; /* Wider for landscape */
+            height: 400px; /* Reduced height */
             background: #F4F1E0; /* Parchment-style */
             border: 5px solid #A67B5B; /* Brown border */
             border-radius: 8px;
@@ -54,27 +54,27 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
-        .top-flap, .bottom-flap {
+        .left-flap, .right-flap {
             position: absolute;
-            width: 100%;
-            height: 50%;
+            width: 50%; /* Half the width for landscape flaps */
+            height: 100%;
             background: #F4F1E0;
             transform-origin: center;
             transition: transform 1s ease-in-out;
         }
-        .top-flap {
-            top: 0;
-            border-bottom: 3px solid #A67B5B;
+        .left-flap {
+            left: 0;
+            border-right: 3px solid #A67B5B;
         }
-        .bottom-flap {
-            bottom: 0;
-            border-top: 3px solid #A67B5B;
+        .right-flap {
+            right: 0;
+            border-left: 3px solid #A67B5B;
         }
-        .flaps-unfolded .top-flap {
-            transform: rotateX(-180deg);
+        .flaps-unfolded .left-flap {
+            transform: rotateY(-180deg);
         }
-        .flaps-unfolded .bottom-flap {
-            transform: rotateX(180deg);
+        .flaps-unfolded .right-flap {
+            transform: rotateY(180deg);
         }
         .content {
             position: absolute;
@@ -96,7 +96,7 @@
         }
         .content h1 {
             color: #FFD700; /* Gold */
-            font-size: 2em;
+            font-size: 2.2em;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -104,7 +104,7 @@
         .content p {
             color: #333;
             margin: 10px 0;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
         .content p.important {
             font-weight: bold;
@@ -131,8 +131,8 @@
 <body>
     <div class="invitation">
         <div class="seal" id="seal">TM</div>
-        <div class="top-flap"></div>
-        <div class="bottom-flap"></div>
+        <div class="left-flap"></div>
+        <div class="right-flap"></div>
         <div class="content" id="content">
             <img src="https://via.placeholder.com/80" alt="Wedding Logo">
             <h1>One Ring to Bind Us</h1>
