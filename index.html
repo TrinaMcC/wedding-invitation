@@ -10,8 +10,8 @@
     body {
       margin: 0;
       background-color: #1a1a1a;
-      color: #e4dcbf;
       font-family: 'Uncial Antiqua', cursive;
+      color: #e4dcbf;
       overflow: hidden;
     }
 
@@ -25,39 +25,49 @@
       align-items: center;
     }
 
-    .seal {
-      width: 150px;
-      height: 150px;
-      background: url('wax-seal.png') center/contain no-repeat;
+    .scroll {
+      width: 300px;
+      height: 200px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
+      border: 2px solid #aa8c3c;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #000;
       cursor: pointer;
-      z-index: 2;
-      transition: transform 0.5s ease;
+      transition: transform 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #aa8c3c;
+      text-align: center;
+      padding: 1rem;
     }
 
-    .seal:hover {
-      transform: scale(1.1);
+    .scroll:hover {
+      transform: scale(1.05);
     }
 
     .invitation {
       position: absolute;
-      top: 10%;
-      width: 80%;
-      max-width: 600px;
-      background-color: rgba(26, 26, 26, 0.95);
-      color: #f5f2e7;
+      top: 5%;
+      width: 85%;
+      max-width: 700px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
+      background-size: cover;
+      color: #2b1d0e;
       border: 2px solid #aa8c3c;
       padding: 2rem;
       font-size: 1.2rem;
       line-height: 1.6;
       display: none;
-      z-index: 1;
+      z-index: 2;
       border-radius: 12px;
       box-shadow: 0 0 25px #000;
     }
 
     .show {
       display: block;
-      animation: fadeIn 1.2s ease;
+      animation: fadeIn 1s ease;
     }
 
     @keyframes fadeIn {
@@ -68,22 +78,24 @@
 </head>
 <body>
   <div class="container">
-    <div class="seal" onclick="openInvitation()"></div>
+    <div class="scroll" onclick="openInvitation()">
+      Open the Scroll
+    </div>
     <div class="invitation" id="invitationText">
-      <h2 style="text-align:center; color:#d6b66b;">You Are Summoned</h2>
-      <p>By the decree of realms old and the bond of true love,</p>
-      <p><strong>C & M</strong> request your presence at the joining of their houses.</p>
-      <p>Let the forests whisper and the mountains echo, for on this day their fates become one.</p>
-      <p><strong>🗓 Date:</strong> [Insert Date Here]</p>
-      <p><strong>📍 Location:</strong> [Insert Location Here]</p>
-      <p>Feast, merriment, and tales around the fire to follow. Come in peace, come in love, come in style.</p>
-      <p style="text-align:center;">May the stars shine upon your path ✨</p>
+      <h2 style="text-align:center; color:#7d5a23;">You Are Cordially Invited</h2>
+      <p>By the will of fate and the strength of love,</p>
+      <p><strong>C & M</strong> request your presence at the celebration of their union.</p>
+      <p>Among ancient trees and under golden skies, they shall bind their destinies together.</p>
+      <p><strong>Date:</strong> [Insert Date Here]</p>
+      <p><strong>Location:</strong> [Insert Location Here]</p>
+      <p>Join us for a night of joy, laughter, and timeless stories shared by firelight. Dress in your finest elvish garb or noble attire, and let your heart be light.</p>
+      <p style="text-align:center; font-style: italic;">May the stars guide you to us ✨</p>
     </div>
   </div>
 
   <script>
     function openInvitation() {
-      document.querySelector('.seal').style.display = 'none';
+      document.querySelector('.scroll').style.display = 'none';
       document.getElementById('invitationText').classList.add('show');
     }
   </script>
