@@ -3,53 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C & M Wedding Invitation</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative&display=swap" rel="stylesheet">
+  <title>The Union of Two Hearts</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=El+Messiri:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: #1a1a1a url('https://images.unsplash.com/photo-1511497584788-876760111969') center/cover no-repeat;
-      font-family: 'Cinzel Decorative', cursive;
-      overflow: hidden;
+      background: #0a0a0a url('https://images.unsplash.com/photo-1511497584788-876760111969') center/cover no-repeat;
+      font-family: 'El Messiri', serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: #333;
+      color: #3a2c0a;
+      overflow: hidden;
     }
 
-    /* Scroll Container */
-    .scroll-container {
-      position: relative;
+    /* Parchment Background (Always Visible) */
+    .parchment {
       width: 90%;
       max-width: 700px;
-      perspective: 1000px;
-    }
-
-    /* The Scroll */
-    .scroll {
-      background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e') center/cover;
+      background: url('https://i.imgur.com/JWwylqX.jpg') center/cover;
       border: 15px solid transparent;
-      border-image: url('https://i.imgur.com/ZYwD6yK.png') 30 round;
+      border-image: url('https://i.imgur.com/ZYwD6yK.png') 30 stretch;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-      padding: 40px;
-      transform-style: preserve-3d;
-      transform: rotateX(10deg);
-      transition: all 1.5s ease;
-      position: relative;
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-    }
-
-    .scroll.unrolled {
-      height: auto;
-      opacity: 1;
-      transform: rotateX(0);
       padding: 60px 40px;
+      position: relative;
+      text-align: center;
     }
 
-    /* Wax Seal */
+    /* Wax Seal (Centered on Parchment) */
     .wax-seal {
       position: absolute;
       top: 50%;
@@ -72,11 +54,10 @@
       transform: translate(-50%, -50%) scale(0.5);
     }
 
-    /* Invitation Text */
-    .invitation-content {
+    /* Invitation Text (Hidden Until Seal is Broken) */
+    .invitation {
       display: none;
-      text-align: center;
-      animation: fadeIn 1.5s ease forwards;
+      animation: fadeIn 2s ease forwards;
     }
 
     h1 {
@@ -85,6 +66,7 @@
       font-size: 2.5rem;
       margin-bottom: 20px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
     }
 
     p {
@@ -94,12 +76,12 @@
     }
 
     .highlight {
-      color: #aa8c3c;
+      color: #5a8c47; /* Forest green */
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
-    /* Countdown */
+    /* Countdown Timer */
     .countdown {
       display: flex;
       justify-content: center;
@@ -108,15 +90,16 @@
     }
 
     .countdown div {
-      background: rgba(26, 26, 26, 0.8);
-      color: #aa8c3c;
+      background: rgba(26, 26, 26, 0.7);
+      color: #d4af37;
       padding: 10px 15px;
       border-radius: 5px;
       font-size: 1.5rem;
       min-width: 70px;
+      font-family: 'MedievalSharp', cursive;
     }
 
-    /* Footer */
+    /* Footer (LOTR-style quote) */
     .footer {
       margin-top: 30px;
       font-style: italic;
@@ -138,47 +121,42 @@
   </style>
 </head>
 <body>
-  <div class="scroll-container">
-    <!-- Wax Seal (initially centered) -->
-    <div class="wax-seal" id="waxSeal" onclick="unrollScroll()"></div>
+  <div class="parchment">
+    <!-- Wax Seal (Centered) -->
+    <div class="wax-seal" id="waxSeal" onclick="revealInvitation()"></div>
 
-    <!-- The Scroll (hidden until clicked) -->
-    <div class="scroll" id="scroll">
-      <div class="invitation-content" id="invitation">
-        <h1>You Are Cordially Invited</h1>
-        <p>By the decree of the ancient woods and the bond of true love,</p>
-        <p class="highlight">C & M</p>
-        <p>request the honor of your presence at the union of their hearts.</p>
-        
-        <div class="countdown" id="countdown">
-          <div><span id="days">00</span> Days</div>
-          <div><span id="hours">00</span> Hours</div>
-          <div><span id="minutes">00</span> Mins</div>
-          <div><span id="seconds">00</span> Secs</div>
-        </div>
-
-        <p class="highlight">🗓 The 21st of January, 2026</p>
-        <p class="highlight">📍 The Enchanted Forest, Green Valley</p>
-        <p>Feasting at twilight, dancing under the stars.</p>
-        <p class="footer">"Where love grows wild like the forest vines."</p>
+    <!-- Invitation (Hidden Until Seal is Clicked) -->
+    <div class="invitation" id="invitation">
+      <h1>The Union of Two Hearts</h1>
+      <p>By the will of the Valar and the bonds of Middle-earth,</p>
+      <p class="highlight">[Your Names Here]</p>
+      <p>request your presence at the joining of their paths.</p>
+      
+      <div class="countdown" id="countdown">
+        <div><span id="days">00</span> Days</div>
+        <div><span id="hours">00</span> Hours</div>
+        <div><span id="minutes">00</span> Mins</div>
+        <div><span id="seconds">00</span> Secs</div>
       </div>
+
+      <p class="highlight">🗓 The 21st of January, 2026</p>
+      <p class="highlight">📍 The Shire, Middle-earth</p>
+      <p>Feasting, ale, and tales under the Party Tree.</p>
+      <p class="footer">"One ring to unite them, one bond to bind them."</p>
     </div>
   </div>
 
   <script>
-    // Unroll the scroll and break the seal
-    function unrollScroll() {
+    // Reveal invitation when seal is clicked
+    function revealInvitation() {
       const waxSeal = document.getElementById('waxSeal');
-      const scroll = document.getElementById('scroll');
       const invitation = document.getElementById('invitation');
 
       waxSeal.classList.add('broken');
-      scroll.classList.add('unrolled');
-
       setTimeout(() => {
         waxSeal.style.display = 'none';
         invitation.style.display = 'block';
-      }, 1000);
+      }, 800);
     }
 
     // Countdown to the wedding
