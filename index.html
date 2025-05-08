@@ -4,235 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trina & Chris Wedding</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=El+Messiri:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: #0a0a0a url('https://images.unsplash.com/photo-1511497584788-876760111969') center/cover no-repeat;
+      /* PASTE YOUR GENERATED BACKGROUND URL BELOW */
+      background: #0a0a0a url('scroll-background.jpg') center/cover no-repeat fixed;
       font-family: 'El Messiri', serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
-      color: #3a2c0a;
       overflow: hidden;
     }
 
-    /* Closed Scroll Container */
-    .scroll-container {
-      position: relative;
-      width: 200px;
-      height: 300px;
-      background: url('https://i.imgur.com/JWwylqX.jpg') center/cover;
-      border-radius: 5px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-      transition: all 1.5s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid #5c2b2b;
-    }
-
-    /* Open Scroll State */
-    .scroll-container.open {
-      width: 90%;
-      max-width: 700px;
-      height: auto;
-      min-height: 500px;
-      background: #f5e7c6;
+    .invitation-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 800px;
+      background: rgba(245, 231, 198, 0.85);
       background-image: 
         linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 20%),
         repeating-linear-gradient(to bottom, #f5e7c6, #f5e7c6 24px, #e3d0a5 25px);
-      border: 12px solid #5c2b2b;
-    }
-
-    /* Wax Seal */
-    .wax-seal {
-      width: 120px;
-      height: 120px;
-      background: url('wax-seal.png') center/contain no-repeat;
-      cursor: pointer;
-      transition: all 0.8s ease;
-      position: absolute;
-      z-index: 10;
-      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-    }
-
-    .scroll-container.open .wax-seal {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-
-    /* Invitation Content */
-    .invitation {
-      display: none;
+      border: 15px solid transparent;
+      border-image: url('https://i.imgur.com/ZYwD6yK.png') 30 stretch;
       padding: 40px;
-      text-align: center;
-      animation: fadeIn 2s ease forwards;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 2s ease;
     }
 
-    .scroll-container.open .invitation {
-      display: block;
-    }
-
-    h1 {
+    /* Content styling (keep your existing invitation styles) */
+    h1 { 
       font-family: 'MedievalSharp', cursive;
       color: #aa8c3c;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      letter-spacing: 2px;
-    }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin: 15px 0;
-    }
-
-    .highlight {
-      color: #5a8c47;
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-
-    /* Countdown Timer */
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
-    }
-
-    .countdown div {
-      background: rgba(26, 26, 26, 0.7);
-      color: #d4af37;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-size: 1.5rem;
-      min-width: 70px;
-      font-family: 'MedievalSharp', cursive;
-    }
-
-    /* Music Button */
-    #musicToggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #5a8c47;
-      color: #f5e7c6;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 100;
-      display: none;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1rem; }
-      .countdown div { font-size: 1.2rem; min-width: 60px; }
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=El+Messiri:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Scroll Container (starts closed) -->
-  <div class="scroll-container" id="scrollContainer">
-    <!-- Wax Seal -->
-    <div class="wax-seal" id="waxSeal"></div>
-    
-    <!-- Invitation Content (hidden until scroll opens) -->
-    <div class="invitation" id="invitation">
-      <h1>The Union of Two Hearts</h1>
-      <p>By the will of the Valar and the bonds of Middle-earth,</p>
-      <p class="highlight">Trina & Chris</p>
-      <p>request your presence at the joining of their paths.</p>
-      
-      <div class="countdown" id="countdown">
-        <div><span id="days">00</span> Days</div>
-        <div><span id="hours">00</span> Hours</div>
-        <div><span id="minutes">00</span> Mins</div>
-        <div><span id="seconds">00</span> Secs</div>
-      </div>
-
-      <p class="highlight">🗓 The 21st of January, 2026</p>
-      <p class="highlight">📍 The Shire, Middle-earth</p>
-      <p>Feasting, ale, and tales under the Party Tree.</p>
-    </div>
+  <!-- Background will show immediately -->
+  
+  <!-- Invitation appears after loading -->
+  <div class="invitation-container" id="invitation">
+    <h1>The Union of Two Hearts</h1>
+    <!-- Your existing invitation content -->
   </div>
 
-  <!-- Music Elements -->
-  <audio id="backgroundMusic" loop>
-    <source src="harp-music.mp3" type="audio/mpeg">
-  </audio>
-
-  <button id="musicToggle" title="Toggle Music">❚❚</button>
-
   <script>
-    // Get elements
-    const waxSeal = document.getElementById('waxSeal');
-    const scrollContainer = document.getElementById('scrollContainer');
-    const invitation = document.getElementById('invitation');
-    const musicToggle = document.getElementById('musicToggle');
-    const backgroundMusic = document.getElementById('backgroundMusic');
-
-    // Click handler for wax seal
-    waxSeal.addEventListener('click', function() {
-      // Open the scroll
-      scrollContainer.classList.add('open');
-      
-      // Start music
-      backgroundMusic.play()
-        .then(() => {
-          musicToggle.style.display = 'block';
-          musicToggle.textContent = '❚❚';
-        })
-        .catch(e => {
-          console.log("Autoplay prevented - user must interact first");
-          musicToggle.style.display = 'block';
-          musicToggle.textContent = '♫';
-        });
+    // Fade in invitation after background loads
+    window.addEventListener('load', () => {
+      document.getElementById('invitation').style.opacity = '1';
     });
-
-    // Music toggle
-    musicToggle.addEventListener('click', function() {
-      if (backgroundMusic.paused) {
-        backgroundMusic.play();
-        this.textContent = '❚❚';
-      } else {
-        backgroundMusic.pause();
-        this.textContent = '♫';
-      }
-    });
-
-    // Countdown timer
-    function updateCountdown() {
-      const weddingDate = new Date('2026-01-21T00:00:00').getTime();
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerText = days;
-      document.getElementById('hours').innerText = hours;
-      document.getElementById('minutes').innerText = minutes;
-      document.getElementById('seconds').innerText = seconds;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
   </script>
 </body>
 </html>
