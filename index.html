@@ -1,39 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Garamond', serif;
-            background-color: #0B3D0B; /* Forest green */
-            background-image: url('https://www.transparenttextures.com/patterns/vine-pattern.png'); /* Vine pattern */
-            background-repeat: repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .invitation {
-            position: relative;
-            width: 800px; /* Larger for better space usage */
-            height: 600px;
-            background: #F4F1E0; /* Parchment-style */
-            border: 5px solid #A67B5B; /* Brown border */
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-        }
-        .scroll {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #F4F1E0; /* Same as invitation */
-            transform-origin: top; /* Ensures scroll effect */
-            transform: translateY(0); /* Start
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C & M Wedding Invitation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+
+    body {
+      margin: 0;
+      background-color: #1a1a1a;
+      color: #e4dcbf;
+      font-family: 'Uncial Antiqua', cursive;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .seal {
+      width: 150px;
+      height: 150px;
+      background: url('wax-seal.png') center/contain no-repeat;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.5s ease;
+    }
+
+    .seal:hover {
+      transform: scale(1.1);
+    }
+
+    .seal.broken {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .invitation {
+      position: absolute;
+      top: 10%;
+      width: 80%;
+      max-width: 600px;
+      background-color: rgba(26, 26, 26, 0.95);
+      color: #f5f2e7;
+      border: 2px solid #aa8c3c;
+      padding: 2rem;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      display: none;
+      z-index: 1;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #000;
+    }
+
+    .show {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Wax Seal -->
+    <div class="seal" id="waxSeal" onclick="openInvitation()"></div>
+
+    <!-- Invitation Content -->
+    <div class="invitation" id="invitationText">
+      <h2 style="text-align:center; color:#d6b66b;">You Are Summoned</h2>
+      <p>By the decree of realms old and the bond of true love,</p>
+      <p><strong>C & M</strong> request your presence at the joining of their houses.</p>
+      <p>Let the forests whisper and the mountains echo, for on this day their fates become one.</p>
+      <p><strong>🗓 Date:</strong> [Insert Date Here]</p>
+      <p><strong>📍 Location:</strong> [Insert Location Here]</p>
+      <p>Feast, merriment, and tales around the fire to follow. Come in peace, come in love, come in style.</p>
+      <p style="text-align:center;">May the stars shine upon your path ✨</p>
+    </div>
+  </div>
+
+  <script>
+    function openInvitation() {
+      const waxSeal = document.getElementById('waxSeal');
+      const invitation = document.getElementById('invitationText');
+
+      // Remove the wax seal with animation
+      waxSeal.classList.add('broken');
+
+      // Wait for the wax seal to disappear, then show the invitation
+      setTimeout(() => {
+        waxSeal.style.display = 'none';
+        invitation.classList.add('show');
+      }, 600); // Matches the wax seal transition duration
+    }
+  </script>
+</body>
+</html>
