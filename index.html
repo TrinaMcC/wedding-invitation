@@ -1,188 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C & M Wedding Invitation</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      background-color: #1a1a1a;
-      font-family: 'Uncial Antiqua', cursive;
+      background: #1a1a1a url('https://images.unsplash.com/photo-1511497584788-876760111969') center/cover no-repeat;
+      font-family: 'Cinzel Decorative', cursive;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 1rem;
-      overflow-x: hidden;
+      height: 100vh;
+      color: #333;
     }
 
-    .container {
+    /* Scroll Container */
+    .scroll-container {
       position: relative;
-      width: 100%;
-      max-width: 650px;
+      width: 90%;
+      max-width: 700px;
+      perspective: 1000px;
     }
 
+    /* The Scroll */
     .scroll {
-      width: 100%;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
-      border: 2px solid #aa8c3c;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e') center/cover;
+      border: 15px solid transparent;
+      border-image: url('https://i.imgur.com/ZYwD6yK.png') 30 round;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      transform-style: preserve-3d;
+      transform: rotateX(10deg);
+      transition: all 1.5s ease;
       position: relative;
+      height: 0;
       overflow: hidden;
-      animation: unroll 1.2s ease-out;
+      opacity: 0;
     }
 
-    @keyframes unroll {
-      from {
-        max-height: 0;
-        opacity: 0;
-      }
-      to {
-        max-height: 1000px;
-        opacity: 1;
-      }
+    .scroll.unrolled {
+      height: auto;
+      opacity: 1;
+      transform: rotateX(0);
+      padding: 60px 40px;
     }
 
-    .seal {
+    /* Wax Seal */
+    .wax-seal {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 100px;
-      height: 100px;
-      background: url('./images/wax-seal.png') center/contain no-repeat;
+      width: 120px;
+      height: 120px;
+      background: url('wax-seal.png') center/contain no-repeat;
       transform: translate(-50%, -50%);
       cursor: pointer;
-      z-index: 2;
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      z-index: 10;
+      transition: all 0.5s ease;
     }
 
-    .seal:hover {
+    .wax-seal:hover {
       transform: translate(-50%, -50%) scale(1.1);
     }
 
-    .seal.broken {
+    .wax-seal.broken {
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0.8);
+      transform: translate(-50%, -50%) scale(0.5);
     }
 
-    .invitation {
+    /* Invitation Text */
+    .invitation-content {
       display: none;
-      padding: 2rem;
-      color: #000;
       text-align: center;
-      animation: fadeIn 1.2s ease forwards;
+      animation: fadeIn 1.5s ease forwards;
     }
 
-    .invitation h1 {
-      color: #d6b66b;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    h1 {
+      font-family: 'MedievalSharp', cursive;
+      color: #aa8c3c;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    .invitation p {
+    p {
       font-size: 1.2rem;
-      margin: 0.8rem 0;
+      line-height: 1.6;
+      margin: 15px 0;
     }
 
     .highlight {
-      color: #d6b66b;
+      color: #aa8c3c;
       font-weight: bold;
+      font-size: 1.4rem;
     }
 
-    .rsvp-button {
-      margin-top: 1.5rem;
-      background: #1a1a1a;
-      color: #d6b66b;
-      border: 2px solid #d6b66b;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
     }
 
-    .rsvp-button:hover {
-      background: #d6b66b;
-      color: #1a1a1a;
+    .countdown div {
+      background: rgba(26, 26, 26, 0.8);
+      color: #aa8c3c;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1.5rem;
+      min-width: 70px;
     }
 
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      font-style: italic;
+      color: #5c2b2b;
+    }
+
+    /* Animations */
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 500px) {
-      .invitation {
-        padding: 1rem;
-      }
-
-      .invitation h1 {
-        font-size: 1.5rem;
-      }
-
-      .invitation p {
-        font-size: 1rem;
-      }
-
-      .seal {
-        width: 80px;
-        height: 80px;
-      }
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      .countdown div { font-size: 1.2rem; min-width: 60px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="scroll">
-      <div class="seal" id="waxSeal" onclick="openInvitation()" aria-label="Click to reveal invitation"></div>
+  <div class="scroll-container">
+    <!-- Wax Seal (initially centered) -->
+    <div class="wax-seal" id="waxSeal" onclick="unrollScroll()"></div>
 
-      <div class="invitation" id="invitationText">
+    <!-- The Scroll (hidden until clicked) -->
+    <div class="scroll" id="scroll">
+      <div class="invitation-content" id="invitation">
         <h1>You Are Cordially Invited</h1>
-        <p>By the decree of realms and the bond of true love,</p>
+        <p>By the decree of the ancient woods and the bond of true love,</p>
         <p class="highlight">C & M</p>
-        <p>request your presence at the union of their houses.</p>
-        <p class="highlight">🗓 Date: 21st September 2025</p>
-        <p class="highlight">📍 Location: Rivendell Gardens, Elvendale</p>
-        <p>Feast, merriment, and tales around the fire to follow.</p>
-        <p>Come in peace, come in love, come in style.</p>
-        <button class="rsvp-button" onclick="window.location.href='mailto:youremail@example.com?subject=RSVP - Wedding of C & M'">RSVP</button>
+        <p>request the honor of your presence at the union of their hearts.</p>
+        
+        <div class="countdown" id="countdown">
+          <div><span id="days">00</span> Days</div>
+          <div><span id="hours">00</span> Hours</div>
+          <div><span id="minutes">00</span> Mins</div>
+          <div><span id="seconds">00</span> Secs</div>
+        </div>
+
+        <p class="highlight">🗓 The 21st of January, 2026</p>
+        <p class="highlight">📍 The Enchanted Forest, Green Valley</p>
+        <p>Feasting at twilight, dancing under the stars.</p>
+        <p class="footer">"Where love grows wild like the forest vines."</p>
       </div>
     </div>
   </div>
 
-  <!-- Optional ambient audio -->
-  <audio autoplay loop hidden>
-    <source src="ambient-music.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
-    function openInvitation() {
+    // Unroll the scroll and break the seal
+    function unrollScroll() {
       const waxSeal = document.getElementById('waxSeal');
-      const invitation = document.getElementById('invitationText');
+      const scroll = document.getElementById('scroll');
+      const invitation = document.getElementById('invitation');
 
       waxSeal.classList.add('broken');
+      scroll.classList.add('unrolled');
 
       setTimeout(() => {
         waxSeal.style.display = 'none';
         invitation.style.display = 'block';
-      }, 600);
+      }, 1000);
     }
+
+    // Countdown to the wedding
+    function updateCountdown() {
+      const weddingDate = new Date('2026-01-21T00:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+    }
+
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initialize immediately
   </script>
 </body>
 </html>
