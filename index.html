@@ -1,187 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Union of Two Hearts</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=El+Messiri:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: #0a0a0a;
-      font-family: 'El Messiri', serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #3a2c0a;
-      overflow: hidden;
-    }
-
-    /* Parchment Background (CSS-generated) */
-    .parchment {
-      width: 90%;
-      max-width: 700px;
-      background: #f5e7c6; /* Parchment color */
-      background-image: 
-        linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 20%),
-        repeating-linear-gradient(to bottom, #f5e7c6, #f5e7c6 24px, #e3d0a5 25px); /* Lined paper effect */
-      border: 12px solid #5c2b2b; /* Dark brown border */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 
-                  inset 0 0 50px rgba(0, 0, 0, 0.2); /* Aged look */
-      padding: 60px 40px;
-      position: relative;
-      text-align: center;
-    }
-
-    /* Wax Seal (Centered on Parchment) */
-    .wax-seal {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120px;
-      height: 120px;
-      background: url('wax-seal.png') center/contain no-repeat;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.5s ease;
-    }
-
-    .wax-seal:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    .wax-seal.broken {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-
-    /* Invitation Text (Hidden Until Seal is Broken) */
-    .invitation {
-      display: none;
-      animation: fadeIn 2s ease forwards;
-    }
-
-    h1 {
-      font-family: 'MedievalSharp', cursive;
-      color: #aa8c3c; /* Gold */
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      letter-spacing: 2px;
-    }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin: 15px 0;
-    }
-
-    .highlight {
-      color: #5a8c47; /* Forest green */
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-
-    /* Countdown Timer */
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
-    }
-
-    .countdown div {
-      background: rgba(26, 26, 26, 0.7);
-      color: #d4af37; /* Gold */
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-size: 1.5rem;
-      min-width: 70px;
-      font-family: 'MedievalSharp', cursive;
-    }
-
-    /* Footer (LOTR-style quote) */
-    .footer {
-      margin-top: 30px;
-      font-style: italic;
-      color: #5c2b2b; /* Dark brown */
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1rem; }
-      .countdown div { font-size: 1.2rem; min-width: 60px; }
-    }
-  </style>
+  <!-- [Previous head content remains the same] -->
 </head>
 <body>
-  <div class="parchment">
-    <!-- Wax Seal (Centered) -->
-    <div class="wax-seal" id="waxSeal" onclick="revealInvitation()"></div>
+  <!-- [Previous parchment/wax-seal HTML remains the same] -->
 
-    <!-- Invitation (Hidden Until Seal is Clicked) -->
-    <div class="invitation" id="invitation">
-      <h1>The Union of Two Hearts</h1>
-      <p>By the will of the Valar and the bonds of Middle-earth,</p>
-      <p class="highlight">[Your Names Here]</p>
-      <p>request your presence at the joining of their paths.</p>
-      
-      <div class="countdown" id="countdown">
-        <div><span id="days">00</span> Days</div>
-        <div><span id="hours">00</span> Hours</div>
-        <div><span id="minutes">00</span> Mins</div>
-        <div><span id="seconds">00</span> Secs</div>
-      </div>
+  <!-- Updated Music Elements -->
+  <audio id="backgroundMusic" loop>
+    <source src="harp-music.mp3" type="audio/mpeg">
+  </audio>
 
-      <p class="highlight">🗓 The 21st of January, 2026</p>
-      <p class="highlight">📍 The Shire, Middle-earth</p>
-      <p>Feasting, ale, and tales under the Party Tree.</p>
-      <p class="footer">"One ring to unite them, one bond to bind them."</p>
-    </div>
-  </div>
+  <button id="musicToggle" style="display: none;" title="Toggle Music">❚❚</button>
 
   <script>
-    // Reveal invitation when seal is clicked
+    // Updated revealInvitation function
     function revealInvitation() {
       const waxSeal = document.getElementById('waxSeal');
       const invitation = document.getElementById('invitation');
+      const musicToggle = document.getElementById('musicToggle');
+      const backgroundMusic = document.getElementById('backgroundMusic');
 
+      // Break seal and reveal invitation
       waxSeal.classList.add('broken');
       setTimeout(() => {
         waxSeal.style.display = 'none';
         invitation.style.display = 'block';
+        musicToggle.style.display = 'block'; // Show music button
+        
+        // AUTOPLAY when seal breaks (with muted fallback)
+        backgroundMusic.muted = false;
+        const playPromise = backgroundMusic.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // If autoplay fails, keep muted and let user unmute
+            backgroundMusic.muted = true;
+          });
+        }
       }, 800);
     }
 
-    // Countdown to the wedding
-    function updateCountdown() {
-      const weddingDate = new Date('2026-01-21T00:00:00').getTime();
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
+    // Updated music toggle
+    document.getElementById('musicToggle').addEventListener('click', function() {
+      const bgMusic = document.getElementById('backgroundMusic');
+      if (bgMusic.paused) {
+        bgMusic.play();
+        this.textContent = '❚❚';
+      } else {
+        bgMusic.pause();
+        this.textContent = '♫';
+      }
+    });
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerText = days;
-      document.getElementById('hours').innerText = hours;
-      document.getElementById('minutes').innerText = minutes;
-      document.getElementById('seconds').innerText = seconds;
-    }
-
-    // Update countdown every second
-    setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initialize immediately
+    // [Rest of your existing JavaScript]
   </script>
 </body>
 </html>
