@@ -1,105 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C & M Wedding Invitation</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
-
-    body {
-      margin: 0;
-      background-color: #1a1a1a;
-      font-family: 'Uncial Antiqua', cursive;
-      color: #f5f2e7;
-      overflow: hidden;
-    }
-
-    .container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
-    }
-
-    .seal {
-      width: 150px;
-      height: 150px;
-      background: url('wax-seal-placeholder.png') center/contain no-repeat;
-      cursor: pointer;
-      z-index: 3;
-      transition: transform 0.5s ease;
-    }
-
-    .seal:hover {
-      transform: scale(1.1);
-    }
-
-    .scroll {
-      position: absolute;
-      width: 90%;
-      max-width: 700px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Old_parchment_texture.jpg') center/cover no-repeat;
-      padding: 2rem;
-      border: 3px solid #8b6f3f;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.6);
-      text-align: center;
-      display: none;
-      z-index: 2;
-      animation: unroll 1.2s ease forwards;
-    }
-
-    @keyframes unroll {
-      from {
-        transform: scaleY(0);
-        opacity: 0;
-      }
-      to {
-        transform: scaleY(1);
-        opacity: 1;
-      }
-    }
-
-    h2 {
-      color: #d6b66b;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .scroll p {
-      font-size: 1.25rem;
-      line-height: 1.8;
-      margin: 0.75rem 0;
-      color: #2b1f0f;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Garamond', serif;
+            background-color: #0B3D0B; /* Forest green */
+            background-image: url('https://www.transparenttextures.com/patterns/vine-pattern.png'); /* Vine pattern */
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .invitation {
+            position: relative;
+            width: 800px; /* Larger for better space usage */
+            height: 600px;
+            background: #F4F1E0; /* Parchment-style */
+            border: 5px solid #A67B5B; /* Brown border */
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        .scroll {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F4F1E0; /* Same as invitation */
+            transform-origin: top; /* Ensures scroll effect */
+            transform: translateY(0); /* Start position */
+            transition: transform 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .scroll.opened {
+            transform: translateY(-100%); /* Reveal the invitation */
+        }
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: #8B0000; /* Wax seal red */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Garamond', serif;
+            font-size: 24px;
+            color: gold;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .seal.broken {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+            padding: 40px;
+            z-index: 0;
+        }
+        .content.visible {
+            opacity: 1;
+        }
+        .content h1 {
+            color: #FFD700; /* Gold */
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .content p {
+            color: #333;
+            font-size: 1.4em;
+            margin: 15px 0;
+        }
+        .content p.important {
+            font-weight: bold;
+            color: #8B0000; /* Red highlight */
+        }
+        .content img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+        .footer small {
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="seal" onclick="openInvitation()"></div>
-    <div class="scroll" id="invitationText">
-      <h2>You Are Cordially Summoned</h2>
-      <p>By the stars above and the ancient oaths below,</p>
-      <p><strong>C & M</strong> invite you to witness their union.</p>
-      <p>In the heart of the realm, where old trees whisper and rivers sing, their souls shall be bound as one.</p>
-      <p><strong>Date:</strong> [Insert Date Here]</p>
-      <p><strong>Location:</strong> [Insert Location Here]</p>
-      <p>A feast shall follow, with song, laughter, and merriment deep into the night.</p>
-      <p>Dress with grace, come with joy, and walk beside us into a new chapter.</p>
-      <p>— Let the tale begin —</p>
+    <div class="invitation">
+        <div class="seal" id="seal">TM</div>
+        <div class="scroll" id="scroll"></div>
+        <div class="content" id="content">
+            <img src="https://via.placeholder.com/100" alt="Wedding Logo">
+            <h1>One Ring to Bind Us</h1>
+            <p>[Your Names Here]</p>
+            <p>Join us on</p>
+            <p class="important"><strong>[Date]</strong> at <strong>[Time]</strong></p>
+            <p class="important">Location: [Your Venue Name]</p>
+            <p>We look forward to celebrating with you!</p>
+            <div class="footer">
+                <small>Formal attire requested | RSVP by [Date]</small>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function openInvitation() {
-      document.querySelector('.seal').style.display = 'none';
-      const invitation = document.getElementById('invitationText');
-      invitation.style.display = 'block';
-    }
-  </script>
+    <script>
+        const seal = document.getElementById('seal');
+        const scroll = document.getElementById('scroll');
+        const content = document.getElementById('content');
+
+        seal.addEventListener('click', () => {
+            seal.classList.add('broken'); // Remove the seal
+            scroll.classList.add('opened'); // Scroll animation
+            setTimeout(() => {
+                content.classList.add('visible'); // Show content
+            }, 1500); // Matches scroll animation
+        });
+    </script>
 </body>
 </html>
