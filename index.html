@@ -1,12 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- [Previous head content remains the same] -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Union of Two Hearts</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=El+Messiri:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      font-family: 'El Messiri', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #3a2c0a;
+      overflow: hidden;
+    }
+
+    .parchment {
+      width: 90%;
+      max-width: 700px;
+      background: #f5e7c6;
+      background-image: 
+        linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 20%),
+        repeating-linear-gradient(to bottom, #f5e7c6, #f5e7c6 24px, #e3d0a5 25px);
+      border: 12px solid #5c2b2b;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 
+                  inset 0 0 50px rgba(0, 0, 0, 0.2);
+      padding: 60px 40px;
+      position: relative;
+      text-align: center;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      /* SOLUTION 1: Use your image (make sure wax-seal.png exists) */
+      /* background: url('wax-seal.png') center/contain no-repeat; */
+      
+      /* SOLUTION 2: CSS-generated seal (temporary) */
+      background: #a52a2a;
+      border-radius: 50%;
+      border: 3px solid #5c2b2b;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      /* End of solutions */
+      
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.5s ease;
+    }
+
+    /* [Rest of your CSS remains the same] */
+  </style>
 </head>
 <body>
-  <!-- [Previous parchment/wax-seal HTML remains the same] -->
+  <div class="parchment">
+    <div class="wax-seal" id="waxSeal" onclick="revealInvitation()"></div>
+    <div class="invitation" id="invitation">
+      <h1>The Union of Two Hearts</h1>
+      <p>By the will of the Valar and the bonds of Middle-earth,</p>
+      <p class="highlight">Trina & Chris</p>
+      <p>request your presence at the joining of their paths.</p>
+      
+      <div class="countdown" id="countdown">
+        <div><span id="days">00</span> Days</div>
+        <div><span id="hours">00</span> Hours</div>
+        <div><span id="minutes">00</span> Mins</div>
+        <div><span id="seconds">00</span> Secs</div>
+      </div>
 
-  <!-- Updated Music Elements -->
+      <p class="highlight">🗓 The 21st of January, 2026</p>
+      <p class="highlight">📍 The Shire, Middle-earth</p>
+      <p>Feasting, ale, and tales under the Party Tree.</p>
+      <p class="footer">"One ring to unite them, one bond to bind them."</p>
+    </div>
+  </div>
+
   <audio id="backgroundMusic" loop>
     <source src="harp-music.mp3" type="audio/mpeg">
   </audio>
@@ -14,34 +88,26 @@
   <button id="musicToggle" style="display: none;" title="Toggle Music">❚❚</button>
 
   <script>
-    // Updated revealInvitation function
     function revealInvitation() {
       const waxSeal = document.getElementById('waxSeal');
       const invitation = document.getElementById('invitation');
       const musicToggle = document.getElementById('musicToggle');
       const backgroundMusic = document.getElementById('backgroundMusic');
 
-      // Break seal and reveal invitation
       waxSeal.classList.add('broken');
       setTimeout(() => {
         waxSeal.style.display = 'none';
         invitation.style.display = 'block';
-        musicToggle.style.display = 'block'; // Show music button
+        musicToggle.style.display = 'block';
         
-        // AUTOPLAY when seal breaks (with muted fallback)
+        // Start music
         backgroundMusic.muted = false;
-        const playPromise = backgroundMusic.play();
-        
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            // If autoplay fails, keep muted and let user unmute
-            backgroundMusic.muted = true;
-          });
-        }
+        backgroundMusic.play().catch(e => {
+          console.log("Autoplay prevented, user must interact first");
+        });
       }, 800);
     }
 
-    // Updated music toggle
     document.getElementById('musicToggle').addEventListener('click', function() {
       const bgMusic = document.getElementById('backgroundMusic');
       if (bgMusic.paused) {
@@ -53,7 +119,24 @@
       }
     });
 
-    // [Rest of your existing JavaScript]
+    function updateCountdown() {
+      const weddingDate = new Date('2026-01-21T00:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
