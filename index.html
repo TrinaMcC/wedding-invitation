@@ -25,6 +25,27 @@
       align-items: center;
     }
 
+    .scroll {
+      position: absolute;
+      width: 80%;
+      max-width: 600px;
+      height: 80%;
+      max-height: 700px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/Old_paper_texture_1.jpg') center/cover no-repeat;
+      border: 2px solid #aa8c3c;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .scroll.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     .seal {
       width: 150px;
       height: 150px;
@@ -56,12 +77,12 @@
       font-size: 1.2rem;
       line-height: 1.6;
       display: none;
-      z-index: 1;
+      z-index: 3;
       border-radius: 12px;
       box-shadow: 0 0 25px #000;
     }
 
-    .show {
+    .invitation.show {
       display: block;
       animation: fadeIn 1.2s ease;
     }
@@ -74,6 +95,9 @@
 </head>
 <body>
   <div class="container">
+    <!-- Scroll/Letter -->
+    <div class="scroll" id="scroll"></div>
+
     <!-- Wax Seal -->
     <div class="seal" id="waxSeal" onclick="openInvitation()"></div>
 
@@ -93,16 +117,21 @@
   <script>
     function openInvitation() {
       const waxSeal = document.getElementById('waxSeal');
+      const scroll = document.getElementById('scroll');
       const invitation = document.getElementById('invitationText');
 
       // Remove the wax seal with animation
       waxSeal.classList.add('broken');
 
-      // Wait for the wax seal to disappear, then show the invitation
+      // Reveal the scroll
       setTimeout(() => {
-        waxSeal.style.display = 'none';
+        scroll.classList.add('show');
+      }, 600); // Matches the wax seal animation duration
+
+      // Show the invitation after the scroll appears
+      setTimeout(() => {
         invitation.classList.add('show');
-      }, 600); // Matches the wax seal transition duration
+      }, 1600); // Delay to let the scroll animation complete
     }
   </script>
 </body>
